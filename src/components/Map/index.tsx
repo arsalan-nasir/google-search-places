@@ -53,27 +53,26 @@ const Map = ({
         setSelectedPlace={saveHistory}
         selectedPlace={selectedPlace}
       />
-      <View style={styles.container}>
-        <MapView
-          ref={mapRef}
-          style={styles.map}
-          initialRegion={{
+
+      <MapView
+        ref={mapRef}
+        style={styles.map}
+        initialRegion={{
+          latitude: selectedPlace.latitude,
+          longitude: selectedPlace.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          coordinate={{
             latitude: selectedPlace.latitude,
             longitude: selectedPlace.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
           }}
-        >
-          <Marker
-            coordinate={{
-              latitude: selectedPlace.latitude,
-              longitude: selectedPlace.longitude,
-            }}
-            title={selectedPlace.name}
-            description={selectedPlace.address}
-          />
-        </MapView>
-      </View>
+          title={selectedPlace.name}
+          description={selectedPlace.address}
+        />
+      </MapView>
     </>
   );
 };

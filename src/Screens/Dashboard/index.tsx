@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import "react-native-get-random-values";
 
@@ -45,4 +45,4 @@ function Dashboard(): React.JSX.Element {
   );
 }
 
-export default memo(Dashboard);
+export default Dashboard;
