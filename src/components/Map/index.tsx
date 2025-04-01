@@ -1,9 +1,10 @@
-import React, {useEffect, useRef, useCallback} from 'react';
-import {View, StyleSheet} from 'react-native';
-import MapView, {Marker, Region} from 'react-native-maps';
-import DropdownComponent from './Dropdown';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {IHistory} from '../types/history';
+import React, { useEffect, useRef, useCallback } from "react";
+import { View } from "react-native";
+import MapView, { Marker, Region } from "react-native-maps";
+import DropdownComponent from "../Dropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IHistory } from "../../types/history";
+import styles from "./styles";
 
 interface IProps {
   history: IHistory[];
@@ -11,7 +12,11 @@ interface IProps {
   setSelectedPlace: (place: IHistory) => void;
 }
 
-const Map = ({history, selectedPlace, setSelectedPlace}: IProps) => {
+const Map = ({
+  history,
+  selectedPlace,
+  setSelectedPlace,
+}: IProps): React.JSX.Element => {
   const mapRef = useRef<MapView>(null);
 
   useEffect(() => {
@@ -19,26 +24,27 @@ const Map = ({history, selectedPlace, setSelectedPlace}: IProps) => {
       const region: Region = {
         latitude: selectedPlace.latitude,
         longitude: selectedPlace.longitude,
+        // This is for Zoom Level
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       };
 
-      // Animate map to the selected place location
+      // Animate map to the selected place location when user select location from response
       mapRef.current.animateToRegion(region, 1000);
     }
   }, [selectedPlace]);
 
   const saveHistory = useCallback(
-    async (newHistory: IHistory) => {
+    async (newHistory: IHistory): Promise<void> => {
       try {
         const newArr = [...history, newHistory];
-        await AsyncStorage.setItem('searchHistory', JSON.stringify(newArr));
+        await AsyncStorage.setItem("searchHistory", JSON.stringify(newArr));
         setSelectedPlace(newHistory);
       } catch (error) {
-        console.error('Error saving search history', error);
+        console.error("Error saving search history", error);
       }
     },
-    [history, setSelectedPlace],
+    [history, setSelectedPlace]
   );
 
   return (
@@ -56,7 +62,8 @@ const Map = ({history, selectedPlace, setSelectedPlace}: IProps) => {
             longitude: selectedPlace.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-          }}>
+          }}
+        >
           <Marker
             coordinate={{
               latitude: selectedPlace.latitude,
@@ -72,12 +79,3 @@ const Map = ({history, selectedPlace, setSelectedPlace}: IProps) => {
 };
 
 export default React.memo(Map);
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-});

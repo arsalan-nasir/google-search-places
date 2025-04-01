@@ -15,6 +15,7 @@
     "lodash": "^4.17.21",
     "react": "19.0.0",
     "react-native": "0.78.1",
+    "react-native-dotenv": "^3.4.11",
     "react-native-element-dropdown": "^2.12.4",
     "react-native-get-random-values": "^1.11.0",
     "react-native-maps": "^1.20.1"

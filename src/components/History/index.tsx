@@ -1,7 +1,8 @@
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {IHistory} from '../types/history';
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { memo, useCallback, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IHistory } from "../../types/history";
+import styles from "./styles";
 
 interface IProps {
   history: IHistory[];
@@ -15,26 +16,26 @@ const History = ({
   setHistory,
   setSelectedPlace,
   setActiveTab,
-}: IProps) => {
+}: IProps): React.JSX.Element => {
   useEffect(() => {
     loadHistory();
   }, []);
 
-  const loadHistory = async () => {
+  const loadHistory = useCallback(async (): Promise<void> => {
     try {
-      const savedHistory = await AsyncStorage.getItem('searchHistory');
+      const savedHistory = await AsyncStorage.getItem("searchHistory");
       if (savedHistory) {
         setHistory(JSON.parse(savedHistory));
       }
     } catch (error) {
-      console.error('Error loading search history', error);
+      console.error("Error loading search history", error);
     }
-  };
+  }, []);
 
-  const handleHistorySelect = (query: IHistory) => {
+  const handleHistorySelect = useCallback((query: IHistory): void => {
     setSelectedPlace(query);
-    setActiveTab('Map');
-  };
+    setActiveTab("Map");
+  }, []);
 
   return (
     <>
@@ -43,7 +44,7 @@ const History = ({
         <FlatList
           data={history}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleHistorySelect(item)}>
               <Text style={styles.historyItem}>{item.name}</Text>
             </TouchableOpacity>
@@ -54,20 +55,4 @@ const History = ({
   );
 };
 
-export default History;
-
-const styles = StyleSheet.create({
-  historyContainer: {
-    marginBottom: 10,
-  },
-  historyTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  historyItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-});
+export default memo(History);
