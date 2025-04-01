@@ -13,7 +13,15 @@ import { Tab } from "../../utils";
 
 function Dashboard(): ReactElement {
   const [activeTab, setActiveTab] = useState(Tab.MAP);
-  const [history, setHistory] = useState<IHistory[]>([]);
+  const [history, setHistory] = useState<IHistory[]>([
+    {
+      address:
+        "Business Suite The Vertical, 8, Jalan Kerinchi, Bangsar South, 59200 Kuala Lumpur, Malaysia",
+      latitude: 3.110692,
+      longitude: 101.666784,
+      name: "Kloudius",
+    },
+  ]);
   const [selectedPlace, setSelectedPlace] = useState<IHistory>({
     address:
       "Business Suite The Vertical, 8, Jalan Kerinchi, Bangsar South, 59200 Kuala Lumpur, Malaysia",

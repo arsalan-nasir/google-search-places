@@ -10,6 +10,7 @@ import styles from "./styles";
 const DropdownComponent = ({
   setSelectedPlace,
   selectedPlace,
+  setLoading,
 }: IDropdownProps): ReactElement => {
   const [isFocus, setIsFocus] = useState(false);
   const [places, setPlaces] = useState<IHistory[]>([]);
@@ -25,6 +26,7 @@ const DropdownComponent = ({
     if (!value.trim()) return;
 
     try {
+      setLoading(true);
       const { status, results } = await get(
         `maps/api/place/textsearch/json?query=${value}&key=${API_KEY}`
       );
@@ -34,6 +36,8 @@ const DropdownComponent = ({
       }
     } catch (error) {
       console.error("Error fetching history", error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 

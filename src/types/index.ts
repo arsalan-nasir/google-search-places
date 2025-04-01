@@ -27,6 +27,7 @@ export interface IMapProps {
 export interface IDropdownProps {
   setSelectedPlace: Function;
   selectedPlace: IHistory;
+  setLoading: Function;
 }
 
 export interface IPlace {

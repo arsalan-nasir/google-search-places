@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useCallback } from "react";
-import { View } from "react-native";
+import React, { useEffect, useRef, useCallback, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import DropdownComponent from "../Dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,6 +12,8 @@ const Map = ({
   selectedPlace,
   setSelectedPlace,
 }: IMapProps): ReactElement => {
+  const [loading, setLoading] = useState<Boolean>(false);
+
   const mapRef = useRef<MapView>(null);
 
   useEffect(() => {
@@ -47,27 +49,38 @@ const Map = ({
       <DropdownComponent
         setSelectedPlace={saveHistory}
         selectedPlace={selectedPlace}
+        setLoading={setLoading}
       />
 
-      <MapView
-        ref={mapRef}
-        style={styles.map}
-        initialRegion={{
-          latitude: selectedPlace.latitude,
-          longitude: selectedPlace.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      >
-        <Marker
-          coordinate={{
+      {loading ? (
+        <View
+          style={{
+            marginTop: "60%",
+          }}
+        >
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <MapView
+          ref={mapRef}
+          style={styles.map}
+          initialRegion={{
             latitude: selectedPlace.latitude,
             longitude: selectedPlace.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
           }}
-          title={selectedPlace.name}
-          description={selectedPlace.address}
-        />
-      </MapView>
+        >
+          <Marker
+            coordinate={{
+              latitude: selectedPlace.latitude,
+              longitude: selectedPlace.longitude,
+            }}
+            title={selectedPlace.name}
+            description={selectedPlace.address}
+          />
+        </MapView>
+      )}
     </>
   );
 };
