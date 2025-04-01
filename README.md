@@ -1,12 +1,12 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Getting Started with Google Places Application
 
-# Getting Started
+Welcome to your new React Native project! This guide will walk you through the process of setting up and running your application on iOS. Please follow the steps carefully to ensure a smooth setup process.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+> **Note**: Before proceeding, ensure you have completed the React Native Environment Setup guide. This will ensure that all the necessary dependencies are installed on your system
 
-## Step 1: Install Dependencies
+## Step 1: Install Project Dependencies
 
-First, you will need to install Dependencies for Application. by running below commands.
+To get started, you need to install the necessary dependencies for your React Native application. You can do this by running the following command in your terminal.
 
 ```sh
 # Using npm
@@ -16,21 +16,35 @@ npm install
 yarn
 ```
 
-## Step 2: Right Now this Application is configured for IOS only so we need to run below command to install IOS bundles
+This will download and install all the dependencies specified in your package.json file.
 
-Open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your iOS app:
+## Step 2: Install iOS Bundles
 
-### iOS
+Currently, this application is configured to run on iOS only. To set up the required native iOS dependencies, follow these steps:
+
+### Navigate to the ios directory in your project:
 
 ```sh
 cd ios
+```
+
+### Install the necessary CocoaPods dependencies:
+
+```sh
 pod install
+```
+
+### Return to the root of your project:
+
+```sh
 cd ..
 ```
 
 For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
-## Step 3: Start Application By running below command
+## Step 3: Run the Application
+
+Once the dependencies are installed and CocoaPods setup is complete, you can start the application. To do this, use one of the following commands:
 
 ```sh
 # Using npm
@@ -40,12 +54,14 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+This will build and launch the app in the iOS Simulator or on your connected iOS device. If everything is set up correctly, you should see your new app running.
 
 ## Step 3: Modify your app
 
-Now that you have successfully run the app, let's make changes!
+Once the app is running, you can begin modifying it according to your needs.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Open the App.tsx file located in the root of your project.
+
+Make the desired changes in the code.
+
+Thanks to Fast Refresh, your changes will automatically reflect in the simulator or on the device as soon as you save the file, allowing for a seamless development experience.
