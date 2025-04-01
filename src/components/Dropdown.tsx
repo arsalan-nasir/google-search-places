@@ -27,7 +27,7 @@ const DropdownComponent = ({setSelectedPlace, selectedPlace}: IProps) => {
 
     try {
       const {status, results} = await get(
-        `maps/api/place/textsearch/json?query=${value}&key=AIzaSyCBG1zHgIMuC4n7D0s-jZQVYPTLLwsXJBw`,
+        `maps/api/place/textsearch/json?query=${value}&key=${process.env.API_KEY}`,
       );
 
       if (status === 'OK') {
