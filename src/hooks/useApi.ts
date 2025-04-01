@@ -1,4 +1,4 @@
-import { IHistory } from "@/types/history";
+import { IHistory } from "../types";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { useCallback, useMemo } from "react";
 

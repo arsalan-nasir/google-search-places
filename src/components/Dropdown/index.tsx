@@ -3,28 +3,17 @@ import { View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { debounce } from "lodash";
 import { useApi } from "../../hooks/useApi";
-import { IHistory } from "../../types/history";
+import { IHistory, ReactElement, IDropdownProps, IPlace } from "../../types";
 import { API_KEY } from "@env";
 import styles from "./styles";
-
-interface IProps {
-  setSelectedPlace: Function;
-  selectedPlace: IHistory;
-}
-
-interface IPlace {
-  lat: string;
-  lng: string;
-  formatted_address: string;
-  name: string;
-}
 
 const DropdownComponent = ({
   setSelectedPlace,
   selectedPlace,
-}: IProps): React.JSX.Element => {
+}: IDropdownProps): ReactElement => {
   const [isFocus, setIsFocus] = useState(false);
   const [places, setPlaces] = useState<IHistory[]>([]);
+  const { get } = useApi();
 
   useEffect(() => {
     if (selectedPlace) {
@@ -32,9 +21,7 @@ const DropdownComponent = ({
     }
   }, []);
 
-  const { get } = useApi();
-
-  const searchPlaces = async (value: string): Promise<void> => {
+  const searchPlaces = useCallback(async (value: string): Promise<void> => {
     if (!value.trim()) return;
 
     try {
@@ -48,7 +35,7 @@ const DropdownComponent = ({
     } catch (error) {
       console.error("Error fetching history", error);
     }
-  };
+  }, []);
 
   const onSearchText = debounce((keyword: string): void => {
     searchPlaces(keyword);
@@ -92,7 +79,9 @@ const DropdownComponent = ({
           },
           name,
           formatted_address,
-        }) => setPlace({ lat, lng, name, formatted_address })}
+        }) => {
+          setPlace({ lat, lng, name, formatted_address });
+        }}
       />
     </View>
   );

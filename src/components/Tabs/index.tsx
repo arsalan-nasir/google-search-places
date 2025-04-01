@@ -1,20 +1,17 @@
 import React, { memo, useCallback } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
+import { TAB_TITLE } from "../../utils";
+import { ReactElement, ITabsProps } from "../../types";
 
-interface IProps {
-  setActiveTab: (tab: string) => void;
-  activeTab: string;
-}
-
-const Tabs = ({ setActiveTab, activeTab }: IProps): React.JSX.Element => {
+const Tabs = ({ setActiveTab, activeTab }: ITabsProps): ReactElement => {
   const handleTabPress = useCallback((tab: string): void => {
     setActiveTab(tab);
   }, []);
 
   return (
     <View style={styles.tabsContainer}>
-      {["Map", "History"].map((tab) => (
+      {TAB_TITLE.map((tab) => (
         <TouchableOpacity
           key={tab}
           onPress={() => handleTabPress(tab)}

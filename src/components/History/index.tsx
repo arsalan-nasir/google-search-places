@@ -1,22 +1,16 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React, { memo, useCallback, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IHistory } from "../../types/history";
+import { IHistory, ReactElement, IHistoryProps } from "../../types";
 import styles from "./styles";
-
-interface IProps {
-  history: IHistory[];
-  setHistory: Function;
-  setSelectedPlace: Function;
-  setActiveTab: Function;
-}
+import { Tab } from "../../utils";
 
 const History = ({
   history,
   setHistory,
   setSelectedPlace,
   setActiveTab,
-}: IProps): React.JSX.Element => {
+}: IHistoryProps): ReactElement => {
   useEffect(() => {
     loadHistory();
   }, []);
@@ -34,7 +28,7 @@ const History = ({
 
   const handleHistorySelect = useCallback((query: IHistory): void => {
     setSelectedPlace(query);
-    setActiveTab("Map");
+    setActiveTab(Tab.MAP);
   }, []);
 
   return (

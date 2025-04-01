@@ -1,8 +1,9 @@
 import React from "react";
 
-import Dashboard from "./src/Screens/Dashboard";
+import Dashboard from "./src/screens/Dashboard";
+import { ReactElement } from "./src/types";
 
-function App(): React.JSX.Element {
+function App(): ReactElement {
   return <Dashboard />;
 }
 

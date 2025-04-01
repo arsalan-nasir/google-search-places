@@ -1,12 +1,9 @@
 import React, { memo } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import styles from "./styles";
+import { ReactElement, IHeaderProps } from "../../types";
 
-interface IHeaderProps {
-  headerName: string;
-}
-
-const Header = ({ headerName }: IHeaderProps): React.JSX.Element => (
+const Header = ({ headerName }: IHeaderProps): ReactElement => (
   <SafeAreaView>
     <View style={styles.container}>
       <Text style={styles.heading}>{headerName}</Text>

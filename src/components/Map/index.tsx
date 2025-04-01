@@ -3,20 +3,15 @@ import { View } from "react-native";
 import MapView, { Marker, Region } from "react-native-maps";
 import DropdownComponent from "../Dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IHistory } from "../../types/history";
+import { IHistory, ReactElement, IMapProps } from "../../types";
 import styles from "./styles";
-
-interface IProps {
-  history: IHistory[];
-  selectedPlace: IHistory;
-  setSelectedPlace: (place: IHistory) => void;
-}
+import { ZOOM_LEVEL } from "../../utils";
 
 const Map = ({
   history,
   selectedPlace,
   setSelectedPlace,
-}: IProps): React.JSX.Element => {
+}: IMapProps): ReactElement => {
   const mapRef = useRef<MapView>(null);
 
   useEffect(() => {
@@ -25,8 +20,8 @@ const Map = ({
         latitude: selectedPlace.latitude,
         longitude: selectedPlace.longitude,
         // This is for Zoom Level
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: ZOOM_LEVEL.latitude,
+        longitudeDelta: ZOOM_LEVEL.longitude,
       };
 
       // Animate map to the selected place location when user select location from response
